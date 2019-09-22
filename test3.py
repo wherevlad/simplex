@@ -70,7 +70,7 @@ def prMatrix(matrix):
 #Z1 = [Fraction(-6, 1), Fraction(-1, 1), Fraction(0, 1), Fraction(0, 1), Fraction(0, 1), Fraction(0, 1)]
 
 matrix = [[2, 4, 0, 3, 1, 0, 0, 120],
-		  [7, 0, 0, 6, 0, 1, 0, 100],
+		  [7, 0, 2, 6, 0, 1, 0, 100],
 		  [5, 8, 4, 3, 0, 0, 1, 480],
 		  [3, 4, 3, 2, 0, 0, 0]
 		]
@@ -116,22 +116,22 @@ prMatrix(matrix)
 
 for j in range(0, len(Z1)):
 	Z1[j] = C[0]*matrix[0][j] - matrix[len(matrix)-1][j]
-	print(Z1[j])
 
 a = copy.deepcopy(matrix)
 
-Z = [i.toFloat() for i in matrix[len(matrix)-1]]
+Z = [i.toFloat() for i in Z1]
 col_indexMin = l = Z.index(min(Z))	# l element
 print(col_indexMin)
 for i in range(0, len(S)):
 	if matrix[i][col_indexMin].toFloat() != 0:
 		S[i] = matrix[i][len(matrix[i])-1] / matrix[i][col_indexMin]
 	else:
-		S[i] = matrix[i][len(matrix[i])-1]
+		S[i] = Fraction(999, 1)
 Z = [i.toFloat() for i in S]
 row_indexMin = k = Z.index(min(Z))	# k element
 print(row_indexMin)
-C[0] = a[k][l]
+C[0] = a[len(a)-1][l]
+
 
 for i in range(0, len(matrix)-1):
 	if i != k:
@@ -139,39 +139,38 @@ for i in range(0, len(matrix)-1):
 	else:
 		matrix[i][len(matrix[i])-1] = a[k][len(matrix[i])-1]/a[k][l]
 
-for i in range(0, len(matrix)):
+for i in range(0, len(matrix)-1):
 	for j in range(0, len(matrix[i])-1):
 		if i != k:
 			matrix[i][j] = a[i][j] - ((a[k][j] * a[i][l])/a[k][l])
 		else:
 			matrix[i][j] = a[k][j]/a[k][l]
 
+for j in range(0, len(Z1)):
+	Z1[j] = C[0]*matrix[0][j] - matrix[len(matrix)-1][j]
+
 prMatrix(matrix)
-#for j in range(0, len(matrix[len(matrix)-1])-1):
-	#if l != j:
-	#print(C[0]*matrix[0][j]+C[1]*matrix[1][j]+C[2]*matrix[2][j], Z1[j])
-#	matrix[len(matrix)-1][j] = C[0]*matrix[0][j] + C[1]*matrix[1][j] + C[2]*matrix[2][j] + Z1[j]
-	#else:
-	#	matrix[len(matrix)-1][j] = Fraction(0, 1)
-
-#prMatrix(matrix)
+for j in range(0, len(Z1)):
+	print(Z1[j], end=' ')
+print('\n')
 
 
-exit()
+
+
 a = copy.deepcopy(matrix)
 
-Z = [i.toFloat() for i in matrix[len(matrix)-1]]
+Z = [i.toFloat() for i in Z1]
 col_indexMin = l = Z.index(min(Z))	# l element
 print(col_indexMin)
 for i in range(0, len(S)):
 	if matrix[i][col_indexMin].toFloat() != 0:
 		S[i] = matrix[i][len(matrix[i])-1] / matrix[i][col_indexMin]
 	else:
-		S[i] = matrix[i][len(matrix[i])-1]
+		S[i] = Fraction(999, 1)
 Z = [i.toFloat() for i in S]
 row_indexMin = k = Z.index(min(Z))	# k element
 print(row_indexMin)
-C[1] = a[k][l]
+C[1] = a[len(a)-1][l]
 
 for i in range(0, len(matrix)-1):
 	if i != k:
@@ -179,7 +178,7 @@ for i in range(0, len(matrix)-1):
 	else:
 		matrix[i][len(matrix[i])-1] = a[k][len(matrix[i])-1]/a[k][l]
 
-for i in range(0, len(matrix)):
+for i in range(0, len(matrix)-1):
 	for j in range(0, len(matrix[i])-1):
 		if i != k:
 			matrix[i][j] = a[i][j] - ((a[k][j] * a[i][l])/a[k][l])
@@ -187,8 +186,12 @@ for i in range(0, len(matrix)):
 			matrix[i][j] = a[k][j]/a[k][l]
 
 
-#for j in range(0, len(matrix[len(matrix)-1])-1):
-#	matrix[len(matrix)-1][j] = C[0]*matrix[0][j] + C[1]*matrix[1][j] + C[2]*matrix[2][j] + Z1[j]
+for j in range(0, len(Z1)):
+	Z1[j] = C[0]*matrix[0][j] - matrix[len(matrix)-1][j]
 
 prMatrix(matrix)
-print(C[0], ' ', C[1])
+for j in range(0, len(Z1)):
+	print(Z1[j], end=' ')
+print('\n')
+
+print(C[0], ' ', C[1], ' ', C[2])
